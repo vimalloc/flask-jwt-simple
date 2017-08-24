@@ -19,5 +19,5 @@ install:
     - pip install -U tox coverage coveralls
 script:
     - tox
-#after_success:
-#    - coveralls
+after_success:
+    - coveralls

@@ -1,10 +1,16 @@
 # Flask-JWT-Simple
+[![Build Status](https://travis-ci.org/vimalloc/flask-jwt-simple.svg?branch=master)](https://travis-ci.org/vimalloc/flask-jwt-simple)
+[![Coverage Status](https://coveralls.io/repos/github/vimalloc/flask-jwt-simple/badge.svg)](https://coveralls.io/github/vimalloc/flask-jwt-simple)
+[![PyPI version](https://badge.fury.io/py/Flask-JWT-Simple.svg)](https://badge.fury.io/py/Flask-JWT-Simple)
+[![Documentation Status](https://readthedocs.org/projects/flask-jwt-simple/badge/)](http://flask-jwt-simple.readthedocs.io/en/latest/)
+
 
 ### When to use Flask-JWT-Simple?
 
 Flask-JWT-Simple adds barebones support for protecting flask endpoints
 with JSON Web Tokens. It is particularly good for fast prototyping or
 consuming/producing JWTs that work with other providers and consumers.
+
 
 ### When *not* to use Flask-JWT-Simple?
 
@@ -15,6 +21,15 @@ easier. These include refresh tokens, fresh/unfresh tokens, tokens in cookies,
 csrf protection when using cookies, and token revoking. The drawback is that 
 extension is a more opinionated on what needs to be in the JWT in order
 to get all those extra features to work.
+
+
+### Installation
+[View Installation Instructions](http://flask-jwt-simple.readthedocs.io/en/latest/installation.html)
+
+
+### Usage
+[View the documentation online](http://flask-jwt-simple.readthedocs.io/en/latest/)
+
 
 ### Chatting
 We are on irc! You can come chat with us in the ```#flask-jwt-extended``` channel on ```freenode```.
