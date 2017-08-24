@@ -1,0 +1,23 @@
+language: python
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=py
+    - python: 3.5
+      env: TOXENV=py
+    - python: 3.4
+      env: TOXENV=py
+    - python: 3.3
+      env: TOXENV=py
+    - python: 2.7
+      env: TOXENV=py
+    - python: pypy
+      env: TOXENV=py
+sudo: false
+install:
+    - pip install -U pip
+    - pip install -U tox coverage coveralls
+script:
+    - tox
+#after_success:
+#    - coveralls
