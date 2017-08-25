@@ -44,7 +44,9 @@ class JWTManager(object):
         :param app: A flask application
         """
         # Save this so we can use it later in the extension
-        app.jwt_manager = self
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+        app.extensions['flask-jwt-simple'] = self
 
         # Set all the default configurations for this extension
         self._set_default_configuration_options(app)

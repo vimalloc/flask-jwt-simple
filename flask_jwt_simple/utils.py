@@ -11,8 +11,8 @@ from flask_jwt_simple.config import config
 
 def _get_jwt_manager():
     try:
-        return current_app.jwt_manager
-    except AttributeError:  # pragma: no cover
+        return current_app.extensions['flask-jwt-simple']
+    except KeyError:  # pragma: no cover
         raise RuntimeError("You must initialize a JWTManager with this flask "
                            "application before using this method")
 

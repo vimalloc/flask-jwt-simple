@@ -6,8 +6,6 @@ from flask_jwt_simple import JWTManager
 from flask_jwt_simple.config import config
 
 
-
-
 @pytest.fixture(scope='function')
 def app():
     app = Flask(__name__)

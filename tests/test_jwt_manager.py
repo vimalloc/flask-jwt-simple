@@ -21,12 +21,12 @@ def _parse_callback(result):
 def test_manual_init_app(app):
     jwt_manager = JWTManager()
     jwt_manager.init_app(app)
-    assert jwt_manager == app.jwt_manager
+    assert jwt_manager == app.extensions['flask-jwt-simple']
 
 
 def test_class_init_app(app):
     jwt_manager = JWTManager(app)
-    assert jwt_manager == app.jwt_manager
+    assert jwt_manager == app.extensions['flask-jwt-simple']
 
 
 def test_default_expired_token_callback(app):
