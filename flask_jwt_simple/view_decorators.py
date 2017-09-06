@@ -42,7 +42,7 @@ def jwt_optional(fn):
         try:
             jwt_data = _decode_jwt_from_headers()
             ctx_stack.top.jwt = jwt_data
-        except NoAuthorizationError:
+        except (NoAuthorizationError, InvalidHeaderError):
             pass
         return fn(*args, **kwargs)
     return wrapper

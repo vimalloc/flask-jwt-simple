@@ -186,12 +186,12 @@ def test_with_bad_header(app, endpoint, header_type):
     )
     json_data = json.loads(response.get_data(as_text=True))
 
-    expected_json = (
-        {'msg': "Bad Authorization header. Expected value '<JWT>'"},
-        {'msg': "Bad Authorization header. Expected value 'Foo <JWT>'"}
+    expected_results = (
+        (422, {'msg': "Bad Authorization header. Expected value '<JWT>'"}),
+        (422, {'msg': "Bad Authorization header. Expected value 'Foo <JWT>'"}),
+        (200, {'foo': "bar"})  # Returns this if unauthorized in jwt_optional test endpoint
     )
-    assert json_data in expected_json
-    assert response.status_code == 422
+    assert (response.status_code, json_data) in expected_results
 
 
 @pytest.mark.parametrize("endpoint", [
