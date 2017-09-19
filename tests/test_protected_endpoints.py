@@ -75,7 +75,7 @@ def app(request):
     JWTManager(app)
 
     @app.route('/jwt', methods=['POST'])
-    def fresh_access_jwt():
+    def create_token_endpoint():
         access_token = create_jwt('username')
         return jsonify(jwt=access_token)
 
@@ -88,9 +88,9 @@ def app(request):
     @jwt_optional
     def optional():
         if get_jwt_identity():
-            return jsonify(foo='baz')
-        else:
             return jsonify(foo='bar')
+        else:
+            return jsonify(foo='baz')
 
     return app
 
@@ -139,7 +139,7 @@ def test_optional_without_jwt(app):
     json_data = json.loads(response.get_data(as_text=True))
 
     assert response.status_code == 200
-    assert json_data == {'foo': 'bar'}
+    assert json_data == {'foo': 'baz'}
 
 
 def test_optional_with_jwt(app):
@@ -149,7 +149,7 @@ def test_optional_with_jwt(app):
     json_data = json.loads(response.get_data(as_text=True))
 
     assert response.status_code == 200
-    assert json_data == {'foo': 'baz'}
+    assert json_data == {'foo': 'bar'}
 
 
 @pytest.mark.parametrize("header_name", ['Authorization', 'Foo'])
@@ -189,7 +189,7 @@ def test_with_bad_header(app, endpoint, header_type):
     expected_results = (
         (422, {'msg': "Bad Authorization header. Expected value '<JWT>'"}),
         (422, {'msg': "Bad Authorization header. Expected value 'Foo <JWT>'"}),
-        (200, {'foo': "bar"})  # Returns this if unauthorized in jwt_optional test endpoint
+        (200, {'foo': "baz"})  # Returns this if unauthorized in jwt_optional test endpoint
     )
     assert (response.status_code, json_data) in expected_results
 
@@ -227,3 +227,77 @@ def test_expired_token(app, endpoint):
 
     assert json_data == {'msg': 'Token has expired'}
     assert response.status_code == 401
+
+
+@pytest.mark.parametrize("endpoint", [
+    '/protected',
+    '/optional',
+])
+def test_valid_aud(app, endpoint):
+    app.config['JWT_DECODE_AUDIENCE'] = 'foo'
+    jwt_manager = app.extensions['flask-jwt-simple']
+
+    @jwt_manager.jwt_data_loader
+    def change_claims(identity):
+        now = datetime.datetime.utcnow()
+        identity_claim = app.config['JWT_IDENTITY_CLAIM']
+        return {
+            'exp': now + app.config['JWT_EXPIRES'],
+            'iat': now,
+            'nbf': now,
+            identity_claim: identity,
+            'aud': 'foo'
+        }
+
+    test_client = app.test_client()
+    jwt = _get_jwt(test_client)
+    response = _make_jwt_request(test_client, jwt, endpoint)
+    json_data = json.loads(response.get_data(as_text=True))
+
+    assert response.status_code == 200
+    assert json_data == {'foo': 'bar'}
+
+
+@pytest.mark.parametrize("endpoint", [
+    '/protected',
+    '/optional',
+])
+def test_invalid_aud(app, endpoint):
+    app.config['JWT_DECODE_AUDIENCE'] = 'bar'
+    jwt_manager = app.extensions['flask-jwt-simple']
+
+    @jwt_manager.jwt_data_loader
+    def change_claims(identity):
+        now = datetime.datetime.utcnow()
+        identity_claim = app.config['JWT_IDENTITY_CLAIM']
+        return {
+            'exp': now + app.config['JWT_EXPIRES'],
+            'iat': now,
+            'nbf': now,
+            identity_claim: identity,
+            'aud': 'foo'
+        }
+
+    test_client = app.test_client()
+    jwt = _get_jwt(test_client)
+    response = _make_jwt_request(test_client, jwt, endpoint)
+    json_data = json.loads(response.get_data(as_text=True))
+
+    assert response.status_code == 422
+    assert json_data == {'msg': 'Invalid audience'}
+
+
+@pytest.mark.parametrize("endpoint", [
+    '/protected',
+    '/optional',
+])
+def test_missing_aud(app, endpoint):
+    app.config['JWT_DECODE_AUDIENCE'] = 'bar'
+
+    test_client = app.test_client()
+    jwt = _get_jwt(test_client)
+    response = _make_jwt_request(test_client, jwt, endpoint)
+    json_data = json.loads(response.get_data(as_text=True))
+
+    assert response.status_code == 422
+    assert json_data == {'msg': 'Token is missing the "aud" claim'}
