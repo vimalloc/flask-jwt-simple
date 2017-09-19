@@ -26,4 +26,5 @@ You can change many options for how this extension works via
                                   such as ``RS*`` or ``ES*``. PEM format expected.
 ``JWT_IDENTITY_CLAIM``            Which claim the `get_jwt_identity()` function will use to get
                                   the identity out of a JWT. Defaults to ``'sub'``.
+``JWT_DECODE_AUDIENCE``           The audience expected to be set in the JWT token when it is decoded.                                  
 ================================= =========================================

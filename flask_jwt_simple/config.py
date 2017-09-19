@@ -60,6 +60,10 @@ class _Config(object):
         return current_app.config['JWT_ALGORITHM']
 
     @property
+    def audience(self):
+        return current_app.config['JWT_DECODE_AUDIENCE']
+
+    @property
     def _secret_key(self):
         key = current_app.config['JWT_SECRET_KEY']
         if not key:

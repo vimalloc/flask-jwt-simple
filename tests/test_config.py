@@ -22,6 +22,7 @@ def test_default_configs(app):
         assert config.jwt_expires == datetime.timedelta(hours=1)
         assert config.algorithm == 'HS256'
         assert config.identity_claim == 'sub'
+        assert config.audience is None
         with pytest.raises(RuntimeError):
             config.encode_key
         with pytest.raises(RuntimeError):
@@ -68,6 +69,9 @@ def test_config_overrides(app):
         app.config['JWT_ALGORITHM'] = 'RS256'
         assert config.algorithm == 'RS256'
         assert config.is_asymmetric is True
+
+        app.config['JWT_DECODE_AUDIENCE'] = 'foobar'
+        assert config.audience == 'foobar'
 
 
 # noinspection PyStatementEffect
