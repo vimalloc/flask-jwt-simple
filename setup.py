@@ -6,7 +6,7 @@ Flask-JWT-Simple provides barebones jwt endpoint protection for Flask.
 from setuptools import setup
 
 setup(name='Flask-JWT-Simple',
-      version='0.0.2',
+      version='0.0.3',
       url='https://github.com/vimalloc/flask-jwt-simple',
       license='MIT',
       author='Landon Gilbert-Bland',
