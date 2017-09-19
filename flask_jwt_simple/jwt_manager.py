@@ -96,6 +96,9 @@ class JWTManager(object):
         # Key that acts as the identity for the JWT
         app.config.setdefault('JWT_IDENTITY_CLAIM', 'sub')
 
+        # Expected value of the audience claim
+        app.config.setdefault('JWT_DECODE_AUDIENCE', None)
+
         # Secret key to sign JWTs with. Only used if a symmetric algorithm is
         # used (such as the HS* algorithms).
         app.config.setdefault('JWT_SECRET_KEY', None)

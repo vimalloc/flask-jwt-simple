@@ -40,7 +40,8 @@ def decode_jwt(encoded_token):
     """
     secret = config.decode_key
     algorithm = config.algorithm
-    return jwt.decode(encoded_token, secret, algorithms=[algorithm])
+    audience = config.audience
+    return jwt.decode(encoded_token, secret, algorithms=[algorithm], audience=audience)
 
 
 def create_jwt(identity):
