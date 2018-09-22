@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/vimalloc/flask-jwt-simple.svg?branch=master)](https://travis-ci.org/vimalloc/flask-jwt-simple)
 [![Coverage Status](https://coveralls.io/repos/github/vimalloc/flask-jwt-simple/badge.svg)](https://coveralls.io/github/vimalloc/flask-jwt-simple)
 [![PyPI version](https://badge.fury.io/py/Flask-JWT-Simple.svg)](https://badge.fury.io/py/Flask-JWT-Simple)
-[![Documentation Status](https://readthedocs.org/projects/flask-jwt-simple/badge/)](http://flask-jwt-simple.readthedocs.io/en/latest/)
+[![Documentation Status](https://readthedocs.org/projects/flask-jwt-simple/badge/)](http://flask-jwt-simple.readthedocs.io/en/latest/) [![Join the chat at https://gitter.im/flask-jwt-simple/Lobby](https://badges.gitter.im/flask-jwt-simple/Lobby.svg)](https://gitter.im/flask-jwt-simple/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 ### When to use Flask-JWT-Simple?
