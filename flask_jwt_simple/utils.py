@@ -20,7 +20,7 @@ def _get_jwt_manager():
 def get_jwt():
     """
     Returns the python dictionary which has all of the data in this JWT. If no
-    JWT is currently present, and empty dict is returned
+    JWT is currently present, an empty dict is returned
     """
     return getattr(ctx_stack.top, 'jwt', {})
 
