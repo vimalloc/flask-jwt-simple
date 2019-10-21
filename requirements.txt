@@ -25,4 +25,4 @@ sphinxcontrib-websupport==1.0.1
 tox==2.7.0
 urllib3==1.22
 virtualenv==15.1.0
-Werkzeug==0.12.2
+Werkzeug==0.15.3
