@@ -17,7 +17,7 @@ pyasn1==0.3.2
 Pygments==2.2.0
 PyJWT==1.5.2
 pytz==2017.2
-requests==2.18.4
+requests==2.20.0
 six==1.10.0
 snowballstemmer==1.2.1
 Sphinx==1.6.3
