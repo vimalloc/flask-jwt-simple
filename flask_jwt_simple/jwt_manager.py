@@ -172,5 +172,5 @@ class JWTManager(object):
         jwt_data = self._get_jwt_data(identity)
         secret = config.encode_key
         algorithm = config.algorithm
-        return jwt.encode(jwt_data, secret, algorithm).decode('utf-8')
+        return jwt.encode(jwt_data, secret, algorithm)
 
