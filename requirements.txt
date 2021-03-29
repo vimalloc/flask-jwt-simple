@@ -14,7 +14,7 @@ MarkupSafe==1.0
 pluggy==0.4.0
 py==1.4.34
 pyasn1==0.3.2
-Pygments==2.2.0
+Pygments==2.7.4
 PyJWT==1.5.2
 pytz==2017.2
 requests==2.18.4
